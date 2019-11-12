@@ -17,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <sys/stat.h>
 #include "YAML_Doc.hpp"
 using namespace std;
 
@@ -69,8 +70,9 @@ string YAML_Doc::generateYAML() {
     filename = destinationFileName;
   filename = filename + string(sdate) + ".yaml";
   if (destinationDirectory!="" && destinationDirectory!=".") {
-    string mkdir_cmd = "mkdir " + destinationDirectory;
-    system(mkdir_cmd.c_str());
+    // string mkdir_cmd = "mkdir " + destinationDirectory;
+    // system(mkdir_cmd.c_str());
+    mkdir(destinationDirectory.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
     filename = destinationDirectory + "/" + destinationFileName;
   } else
     filename = "./" + filename;
